@@ -77,10 +77,11 @@
         border-top: 1px solid #ccc;
     }
 
-    .mbsc-timeline.mbsc-ltr .mbsc-schedule-event-inner,
+    /* main below affect */
+    /* .mbsc-timeline.mbsc-ltr .mbsc-schedule-event-inner,
     .md-employee-shifts .mbsc-schedule-event {
         height: max-content;
-    }
+    } */
 </style>
 
 <!-- Content Header (Page header) -->
@@ -310,7 +311,7 @@
                                             calendar.removeEvent(tempShift);
 
                                         } else {
-                                            console.log(response)
+                                            //console.log(response)
                                             var lastId = responseData.lastid;
                                             tempShift.id = lastId;
                                             var locationText = $('#location-dropdown2 option:selected').text();
@@ -351,7 +352,6 @@
 
                 deleteShift = false;
                 restoreShift = true;
-                //console.log('createEditPopup');
 
                 $.ajax({
                     url: '<?php echo base_url('CreateSchedule/getUserLocations'); ?>',
@@ -411,7 +411,7 @@
                                     method: 'POST',
                                     data: ev,
                                     success: function(response) {
-                                        console.log(response)
+                                        //console.log(response)
                                         var responseData = JSON.parse(response);
                                         if (responseData && responseData.success === false) {
                                             alert(responseData.message);
@@ -451,7 +451,7 @@
                     refDate: refDate,
                     selectedDate: selectedDate,
                     data: shifts,
-                    dragToCreate: false,
+                    dragToCreate: true,
                     dragToResize: false,
                     dragToMove: false,
                     clickToCreate: true,
@@ -497,7 +497,6 @@
 
                     onEventCreate: function(args) {
 
-                        //console.log('onEventCreate');
                         // Store temporary event
                         tempShift = args.event;
                         $.ajax({
@@ -605,7 +604,6 @@
                             var title = formatDate('HH:mm', date[0]) + ' - ' + formatDate('HH:mm', date[1] ? date[1] : date[0]);
                         }
                         tempShift.title = title;
-                        //console.log(tempShift)
                     },
                 })
                 .mobiscroll('getInst');

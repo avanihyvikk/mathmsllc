@@ -9,7 +9,7 @@ class UserShiftScheduleModel extends BaseModel
     protected $table      = 'user_shift_schedule';
     protected $primaryKey = 'id';
     protected $returnType     = 'object';
-    protected $allowedFields = ['userid', 'location', 'assign_userid', 'start_time', 'end_time', 'date', 'note'];
+    protected $allowedFields = ['userid', 'location', 'assign_userid', 'start_time', 'end_time', 'date', 'created_at','updated_at'];
     public function getAllShiftSchedule()
     {
         return $this->findAll();

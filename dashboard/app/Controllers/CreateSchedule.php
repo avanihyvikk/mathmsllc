@@ -153,6 +153,11 @@ class CreateSchedule extends AdminBaseController
         $location = isset($eventData['location2']) ? $eventData['location2'] : null;
         $resource = isset($eventData['resource']) ? $eventData['resource'] : null;
 
+        if ($location === null) {
+            echo json_encode(['success' => false, 'message' => 'Please select a location. Kindly wait for a few moments after selecting a location before proceeding.']);
+            return;
+        }
+
         $user = (new UserModel)->getById(logged('id'));
 
         $shiftData = [
@@ -162,6 +167,7 @@ class CreateSchedule extends AdminBaseController
             'location' => $location,
             'userid' => $resource,
             'assign_userid' => $user->id,
+            'created_at' => date('Y-m-d H:i:s')
         ];
         $UserShift = new UserShiftScheduleModel();
         $availableShifts = $UserShift->chkshiftavailable(
@@ -196,6 +202,7 @@ class CreateSchedule extends AdminBaseController
             'start_time' => $startTime,
             'end_time' => $endTime,
             'location' => $location,
+            'updated_at' => date('Y-m-d H:i:s')
         ];
         $availableShifts = $eventModel->chkshiftavailable(
             $eventData['resource'],
