@@ -1,0 +1,5 @@
+[05-Feb-2024 23:28:30 UTC] PHP Parse error:  Unmatched '}' in /home/mathmsllc/public_html/reminders/view_reminders.php on line 88
+[05-Feb-2024 23:28:59 UTC] PHP Parse error:  syntax error, unexpected token "else", expecting end of file in /home/mathmsllc/public_html/reminders/view_reminders.php on line 88
+[05-Feb-2024 23:29:54 UTC] PHP Parse error:  Unmatched '}' in /home/mathmsllc/public_html/reminders/view_reminders.php on line 89
+[05-Feb-2024 23:30:33 UTC] PHP Parse error:  Unmatched '}' in /home/mathmsllc/public_html/reminders/view_reminders.php on line 89
+[05-Feb-2024 23:31:30 UTC] PHP Parse error:  Unmatched '}' in /home/mathmsllc/public_html/reminders/view_reminders.php on line 89

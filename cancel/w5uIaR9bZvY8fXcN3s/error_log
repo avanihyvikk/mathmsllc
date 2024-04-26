@@ -1,0 +1,5 @@
+[28-Feb-2024 01:43:34 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in /home/mathmsllc/public_html/cancel/w5uIaR9bZvY8fXcN3s/process_form.php:118
+Stack trace:
+#0 /home/mathmsllc/public_html/cancel/w5uIaR9bZvY8fXcN3s/process_form.php(118): mysqli->query('INSERT INTO tas...')
+#1 {main}
+  thrown in /home/mathmsllc/public_html/cancel/w5uIaR9bZvY8fXcN3s/process_form.php on line 118

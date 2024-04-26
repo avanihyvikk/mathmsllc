@@ -1,0 +1,30 @@
+[25-Feb-2024 17:49:33 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Field 'unique_token' doesn't have a default value in /home/mathmsllc/public_html/cancel/process_form.php:29
+Stack trace:
+#0 /home/mathmsllc/public_html/cancel/process_form.php(29): mysqli->query('INSERT INTO une...')
+#1 {main}
+  thrown in /home/mathmsllc/public_html/cancel/process_form.php on line 29
+[25-Feb-2024 19:36:58 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Field 'unique_token' doesn't have a default value in /home/mathmsllc/public_html/cancel/process_form.php:29
+Stack trace:
+#0 /home/mathmsllc/public_html/cancel/process_form.php(29): mysqli->query('INSERT INTO une...')
+#1 {main}
+  thrown in /home/mathmsllc/public_html/cancel/process_form.php on line 29
+[25-Feb-2024 19:37:32 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Field 'unique_token' doesn't have a default value in /home/mathmsllc/public_html/cancel/process_form.php:29
+Stack trace:
+#0 /home/mathmsllc/public_html/cancel/process_form.php(29): mysqli->query('INSERT INTO une...')
+#1 {main}
+  thrown in /home/mathmsllc/public_html/cancel/process_form.php on line 29
+[27-Feb-2024 00:01:17 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Field 'unique_token' doesn't have a default value in /home/mathmsllc/public_html/cancel/process_form.php:29
+Stack trace:
+#0 /home/mathmsllc/public_html/cancel/process_form.php(29): mysqli->query('INSERT INTO une...')
+#1 {main}
+  thrown in /home/mathmsllc/public_html/cancel/process_form.php on line 29
+[27-Feb-2024 00:01:22 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Field 'unique_token' doesn't have a default value in /home/mathmsllc/public_html/cancel/process_form.php:29
+Stack trace:
+#0 /home/mathmsllc/public_html/cancel/process_form.php(29): mysqli->query('INSERT INTO une...')
+#1 {main}
+  thrown in /home/mathmsllc/public_html/cancel/process_form.php on line 29
+[27-Feb-2024 02:09:01 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Field 'unique_token' doesn't have a default value in /home/mathmsllc/public_html/cancel/process_form.php:29
+Stack trace:
+#0 /home/mathmsllc/public_html/cancel/process_form.php(29): mysqli->query('INSERT INTO une...')
+#1 {main}
+  thrown in /home/mathmsllc/public_html/cancel/process_form.php on line 29

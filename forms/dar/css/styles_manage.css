@@ -1,0 +1,51 @@
+/* styles.css */
+
+body {
+    font-family: 'Helvetica Neue', sans-serif;
+    background-color: #f8f9fa;
+    padding-top: 50px; /* Adjust as needed */
+}
+
+.container {
+    margin-top: 20px;
+}
+
+h2 {
+    color: #007bff;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.custom-control-label {
+    padding-top: 2px;
+}
+
+.table {
+    background-color: #fff;
+}
+
+.table th, .table td {
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.modal-content {
+    background-color: #fff;
+}
+
+/* Adjust modal styles as needed */
+
+.table select.form-control.edit-field-type {
+    width: 120px; /* Adjust the width as needed */
+}
