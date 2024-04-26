@@ -36,7 +36,6 @@ class CreateSchedule extends AdminBaseController
     }
     public function getUserdata()
     {
-        
         function getRandomColor()
         {
             return '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
