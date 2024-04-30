@@ -76,12 +76,13 @@
         z-index: 5;
         border-top: 1px solid #ccc;
     }
+    @media only screen and (min-width: 768px) {
 
-    /* main below affect */
-    /* .mbsc-timeline.mbsc-ltr .mbsc-schedule-event-inner,
-    .md-employee-shifts .mbsc-schedule-event {
-        height: max-content;
-    } */
+        .mbsc-timeline.mbsc-ltr .mbsc-schedule-event-inner,
+        .md-employee-shifts .mbsc-schedule-event {
+            height: max-content;
+        }
+    }
 </style>
 
 <!-- Content Header (Page header) -->
@@ -577,7 +578,7 @@
                     touchUi: false,
                     startInput: '#employee-shifts-start',
                     endInput: '#employee-shifts-end',
-                    stepMinute: 30,
+                    stepMinute: 5,
                     timeWheels: '|h:mm A|',
                     onChange: function(args) {
                         var date = args.value;

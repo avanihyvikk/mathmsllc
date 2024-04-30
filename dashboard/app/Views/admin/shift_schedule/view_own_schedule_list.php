@@ -82,10 +82,12 @@
     .mbsc-ios.mbsc-label.mbsc-disabled {
         opacity: 1;
     }
+    @media only screen and (min-width: 768px) {
 
-    .mbsc-timeline.mbsc-ltr .mbsc-schedule-event-inner,
-    .md-employee-shifts .mbsc-schedule-event {
-        height: max-content;
+        .mbsc-timeline.mbsc-ltr .mbsc-schedule-event-inner,
+        .md-employee-shifts .mbsc-schedule-event {
+            height: max-content;
+        }
     }
 
     /* ass css */
@@ -101,12 +103,6 @@
         width: 90%;
         opacity: 1;
     }
-
-    /* .calendertitlemain {
-        background: #8080801f;
-        padding: 10px;
-        margin-bottom: 10px;
-    } */
 </style>
 <section class="content-header">
     <div class="container-fluid">
