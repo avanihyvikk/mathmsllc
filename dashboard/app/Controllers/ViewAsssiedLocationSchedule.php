@@ -70,7 +70,7 @@ class ViewAsssiedLocationSchedule extends AdminBaseController
                 'name' => $user->first_name . ' ' . $user->last_name,
                 'color' => getRandomColor(),
                 'title' => $title,
-                'img' => '',
+                'img' => userProfile($user->id),
             ];
         }
 

@@ -82,13 +82,30 @@
     .mbsc-ios.mbsc-label.mbsc-disabled {
         opacity: 1;
     }
-    @media only screen and (min-width: 768px) {
 
-        .mbsc-timeline.mbsc-ltr .mbsc-schedule-event-inner,
-        .md-employee-shifts .mbsc-schedule-event {
-            height: max-content;
-        }
+    /* support css */
+    /* update the default min-width */
+    .md-employee-shifts .mbsc-timeline-column,
+    .md-employee-shifts .mbsc-timeline-day,
+    .md-employee-shifts .mbsc-timeline-header-column {
+        min-width: 10em;
     }
+
+    /* update the default event height and font size */
+    .md-employee-shifts .mbsc-schedule-event {
+        height: 40px;
+        font-size: 14px;
+    }
+
+    .md-employee-shifts .mbsc-schedule-event-inner {
+        height: 100%;
+    }
+
+    .md-employee-shifts .mbsc-schedule-event-title {
+        white-space: initial;
+    }
+
+    /* support css end*/
 
     /* ass css */
     #location-dropdown {
