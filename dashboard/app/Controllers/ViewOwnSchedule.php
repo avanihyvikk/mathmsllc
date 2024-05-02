@@ -59,8 +59,7 @@ class ViewOwnSchedule extends AdminBaseController
             $totalShiftHours = $userShiftModel->getTotalShiftHours($user->id, $_POST['refDate'], $_POST['selectedDate']);
             $totalShiftHours = $totalShiftHours[0]->total_shift_hours;
             $totalShiftHoursFormatted = substr($totalShiftHours, 0, 5);
-            $title = !empty($totalShiftHoursFormatted) ? $totalShiftHoursFormatted.' Hrs' : '';
-
+            $title = !empty($totalShiftHoursFormatted) ? '<i class="fas fa-clock"></i> ' . $totalShiftHoursFormatted . ' Hrs' : '<i class="fas fa-clock"></i> 00:00 Hrs';
             $staff[] = [
                 'id' => $user->id,
                 'name' => $user->first_name . ' ' . $user->last_name,

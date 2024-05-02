@@ -16,7 +16,7 @@
     .employee-shifts-cont {
         position: relative;
         padding-left: 42px;
-        max-height: 40px;
+        /* max-height: 40px; */
     }
 
     .employee-shifts-avatar {
@@ -35,6 +35,7 @@
 
     .employee-shifts-title {
         font-size: 12px;
+        color: #007aff;
     }
 
     .md-employee-shifts .mbsc-timeline-resource,
@@ -466,6 +467,7 @@
                             eventList: true,
                         }
                     },
+                    todayText: 'Week',
                     refDate: refDate,
                     selectedDate: selectedDate,
                     data: shifts,
