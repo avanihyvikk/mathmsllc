@@ -64,12 +64,22 @@ class ViewAsssiedLocationSchedule extends AdminBaseController
             $totalShiftHours = $totalShiftHours[0]->total_shift_hours;
             $totalShiftHoursFormatted = substr($totalShiftHours, 0, 5);
             $title = !empty($totalShiftHoursFormatted) ? '<i class="fas fa-clock"></i> ' . $totalShiftHoursFormatted . ' Hrs' : '<i class="fas fa-clock"></i> 00:00 Hrs';
+            // img start
+            $imgType = model('App\Models\UserModel')->getRowById($user->id, 'img_type');
+            $defaultImgPath = FCPATH . '/uploads/users/no_user.jpg';
+            $imagePath = FCPATH . '/uploads/users/' . $user->id . '.' . $imgType;
+            if (file_exists($imagePath)) {
+                $imgPath = $imagePath;
+            } else {
+                $imgPath = $defaultImgPath;
+            }
+            // img end
             $staff[] = [
                 'id' => $user->id,
                 'name' => $user->first_name . ' ' . $user->last_name,
                 'color' => getRandomColor(),
                 'title' => $title,
-                'img' => userProfile($user->id),
+                'img' => base_url('uploads/users/' . basename($imgPath)),
             ];
         }
 

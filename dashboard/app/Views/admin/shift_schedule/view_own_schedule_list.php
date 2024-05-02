@@ -23,10 +23,11 @@
         position: absolute;
         max-height: 40px;
         max-width: 40px;
-        top: 18px;
+        top: 25px;
         -webkit-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);
         left: 20px;
+        border-radius: 50%;
     }
 
     .employee-shifts-name {
