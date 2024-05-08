@@ -560,6 +560,32 @@
                             '</div>'
                         );
                     },
+                    onPageLoading: function(args, inst) {
+
+                        var refDate = moment(args.firstDay).format('YYYY-MM-DD');
+                        var selectedDate = moment(args.lastDay).format('YYYY-MM-DD');
+
+                        //console.log(refDate)
+                        $.ajax({
+                            url: '<?php echo base_url('CreateSchedule/getUserdata'); ?>',
+                            method: 'POST',
+                            data: {
+                                locationId: locationId,
+                                refDate: refDate,
+                                selectedDate: selectedDate
+                            },
+                            success: function(response) {
+                                var responseData = JSON.parse(response);
+                                var newResources = responseData.staff;
+                                inst.setOptions({
+                                    resources: newResources
+                                });
+                            },
+                            error: function(xhr, status, error) {
+                                console.error('Failed to fetch staff data:', error);
+                            }
+                        });
+                    }
                 })
                 .mobiscroll('getInst');
 
