@@ -79,6 +79,11 @@
         border-top: 1px solid #ccc;
     }
 
+    .mbsc-ios.mbsc-textfield-inner.mbsc-disabled,
+    .mbsc-ios.mbsc-label.mbsc-disabled {
+        opacity: 1;
+    }
+
     /* support css */
     /* update the default min-width */
     .md-employee-shifts .mbsc-timeline-column,
@@ -148,6 +153,13 @@
         <div class="col-sm-12">
             <!-- Default card -->
             <div class="card">
+                <?php
+                // Extract locationId from the URL
+                $locationId = isset($_GET['locationId']) ? $_GET['locationId'] : null;
+
+                // Check if locationId is numeric
+                $isLocationIdValid = $locationId && is_numeric($locationId);
+                ?>
 
                 <div class="card-body">
 
@@ -157,15 +169,15 @@
                         <div class="mbsc-form-group">
                             <label for="employee-shifts-start">
                                 Shift start
-                                <input mbsc-input data-dropdown="true" id="employee-shifts-start" />
+                                <input mbsc-input data-dropdown="true" id="employee-shifts-start" <?php echo !$isLocationIdValid ? 'disabled' : ''; ?> />
                             </label>
                             <label for="employee-shifts-end">
                                 Shift end
-                                <input mbsc-input data-dropdown="true" id="employee-shifts-end" />
+                                <input mbsc-input data-dropdown="true" id="employee-shifts-end" <?php echo !$isLocationIdValid ? 'disabled' : ''; ?> />
                             </label>
                             <label for="location-dropdown2" class=" mbsc-ios mbsc-ltr mbsc-form-control-wrapper mbsc-textfield-wrapper mbsc-font mbsc-textfield-wrapper-underline mbsc-textfield-wrapper-inline"><span class=" mbsc-ios mbsc-ltr mbsc-label mbsc-label-inline mbsc-label-underline-inline">
                                     Location
-                                </span><span class="mbsc-ios mbsc-ltr mbsc-textfield-inner mbsc-textfield-inner-underline mbsc-textfield-inner-inline"><select id="location-dropdown2"></select><span class="mbsc-select-icon mbsc-select-icon-underline mbsc-ltr mbsc-ios mbsc-select-icon-inline mbsc-icon mbsc-ios"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                </span><span class="mbsc-ios mbsc-ltr mbsc-textfield-inner mbsc-textfield-inner-underline mbsc-textfield-inner-inline"><select id="location-dropdown2" <?php echo !$isLocationIdValid ? 'disabled' : ''; ?>></select><span class="mbsc-select-icon mbsc-select-icon-underline mbsc-ltr mbsc-ios mbsc-select-icon-inline mbsc-icon mbsc-ios"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                             <path d="M256 294.1L383 167c9.4-9.4 24.6-9.4 33.9 0s9.3 24.6 0 34L273 345c-9.1 9.1-23.7 9.3-33.1.7L95 201.1c-4.7-4.7-7-10.9-7-17s2.3-12.3 7-17c9.4-9.4 24.6-9.4 33.9 0l127.1 127z"></path>
                                         </svg></span></span></label>
                             <div id="demo-employee-shifts-date"></div>
@@ -175,10 +187,11 @@
                             <label for="location-dropdown2" style="padding-left: 1em;">Location</label>
                             <select id="location-dropdown2"></select>
                         </div> -->
-
-                        <div class="mbsc-button-group">
-                            <button class="mbsc-button-block" id="employee-shifts-delete" mbsc-button data-color="danger" data-variant="outline">Delete shift</button>
-                        </div>
+                        <?php if ($isLocationIdValid) : ?>
+                            <div class="mbsc-button-group">
+                                <button class="mbsc-button-block" id="employee-shifts-delete" mbsc-button data-color="danger" data-variant="outline">Delete shift</button>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <!-- /.card-body -->
@@ -279,6 +292,10 @@
         function initializeMobiscroll(staff, shifts, event_time_format) {
 
             // Set Mobiscroll options
+            var lacationidvar = false;
+            if (locationId && !isNaN(locationId)) {
+                lacationidvar = true;
+            }
 
             var resources = staff.map(function(employee) {
                 return {
@@ -398,59 +415,69 @@
                     }
                 });
                 // set popup header text and buttons for editing
-                popup.setOptions({
-                    headerText: '<div>Edit ' + resource.name + '\'s hours</div>',
-                    buttons: [
-                        'cancel',
-                        {
-                            text: 'Save',
-                            keyCode: 'enter',
-                            handler: function() {
-                                var date = range.getVal();
-                                // update event with the new properties on save button click
-                                if (event_time_format == '12 Hour') {
-                                    var title = formatDate('hh:mm A', date[0]) + ' - ' + formatDate('hh:mm A', date[1] ? date[1] : date[0]) + ' <br> ' + $('#location-dropdown2 option:selected').text();
-                                } else {
-                                    var title = formatDate('HH:mm', date[0]) + ' - ' + formatDate('HH:mm', date[1] ? date[1] : date[0]) + ' <br> ' + $('#location-dropdown2 option:selected').text();
-                                }
-                                calendar.updateEvent({
-                                    id: ev.id,
-                                    title: title,
-                                    location2: $location2.val(),
-                                    start: date[0],
-                                    end: date[1] ? date[1] : date[0],
-                                    resource: resource.id,
-                                    color: resource.color,
-                                    start2: formatDate('HH:mm', date[0]), // Format the start time as required
-                                    end2: formatDate('HH:mm', date[1] ? date[1] : date[0]), // Format the end time as required
-                                    date2: formatDate('YYYY-MM-DD', date[0]) // Format the date as required
-                                });
-                                // Make an AJAX call to update the event
-                                $.ajax({
-                                    url: '<?php echo base_url('CreateSchedule/updateEvent'); ?>',
-                                    method: 'POST',
-                                    data: ev,
-                                    success: function(response) {
-                                        //console.log(response)
-                                        var responseData = JSON.parse(response);
-                                        if (responseData && responseData.success === false) {
-                                            alert(responseData.message);
-                                            calendar.updateEvent(oldShift);
-
-                                        }
-                                    },
-                                    error: function(xhr, status, error) {
-                                        console.error('Failed to update event:', error);
+                if (lacationidvar) {
+                    popup.setOptions({
+                        headerText: '<div>Edit ' + resource.name + '\'s hours</div>',
+                        buttons: [
+                            'cancel',
+                            {
+                                text: 'Save',
+                                keyCode: 'enter',
+                                handler: function() {
+                                    var date = range.getVal();
+                                    // update event with the new properties on save button click
+                                    if (event_time_format == '12 Hour') {
+                                        var title = formatDate('hh:mm A', date[0]) + ' - ' + formatDate('hh:mm A', date[1] ? date[1] : date[0]) + ' <br> ' + $('#location-dropdown2 option:selected').text();
+                                    } else {
+                                        var title = formatDate('HH:mm', date[0]) + ' - ' + formatDate('HH:mm', date[1] ? date[1] : date[0]) + ' <br> ' + $('#location-dropdown2 option:selected').text();
                                     }
-                                });
+                                    calendar.updateEvent({
+                                        id: ev.id,
+                                        title: title,
+                                        location2: $location2.val(),
+                                        start: date[0],
+                                        end: date[1] ? date[1] : date[0],
+                                        resource: resource.id,
+                                        color: resource.color,
+                                        start2: formatDate('HH:mm', date[0]), // Format the start time as required
+                                        end2: formatDate('HH:mm', date[1] ? date[1] : date[0]), // Format the end time as required
+                                        date2: formatDate('YYYY-MM-DD', date[0]) // Format the date as required
+                                    });
+                                    // Make an AJAX call to update the event
+                                    $.ajax({
+                                        url: '<?php echo base_url('CreateSchedule/updateEvent'); ?>',
+                                        method: 'POST',
+                                        data: ev,
+                                        success: function(response) {
+                                            //console.log(response)
+                                            var responseData = JSON.parse(response);
+                                            if (responseData && responseData.success === false) {
+                                                alert(responseData.message);
+                                                calendar.updateEvent(oldShift);
 
-                                restoreShift = false;
-                                popup.close();
+                                            }
+                                        },
+                                        error: function(xhr, status, error) {
+                                            console.error('Failed to update event:', error);
+                                        }
+                                    });
+
+                                    restoreShift = false;
+                                    popup.close();
+                                },
+                                cssClass: 'mbsc-popup-button-primary',
                             },
-                            cssClass: 'mbsc-popup-button-primary',
-                        },
-                    ],
-                });
+                        ],
+                    });
+
+                } else {
+                    popup.setOptions({
+                        headerText: '<div>View ' + resource.name + '\'s hours</div>',
+                        buttons: [
+                            'cancel',
+                        ],
+                    });
+                }
 
 
                 $location2.val(ev.location2);
@@ -472,10 +499,10 @@
                     refDate: refDate,
                     selectedDate: selectedDate,
                     data: shifts,
-                    dragToCreate: true,
+                    dragToCreate: lacationidvar,
                     dragToResize: false,
                     dragToMove: false,
-                    clickToCreate: true,
+                    clickToCreate: lacationidvar,
                     resources: staff,
                     invalid: invalid,
                     extendDefaultEvent: function(ev) {
@@ -563,9 +590,9 @@
                     onPageLoading: function(args, inst) {
 
                         var refDate = moment(args.firstDay).format('YYYY-MM-DD');
-                        var lastDay = new Date(+args.lastDay -1);
+                        var lastDay = new Date(+args.lastDay - 1);
                         var selectedDate = moment(lastDay).format('YYYY-MM-DD');
-                        
+
                         //console.log(refDate)
                         $.ajax({
                             url: '<?php echo base_url('CreateSchedule/getUserdata'); ?>',
