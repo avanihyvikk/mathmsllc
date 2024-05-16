@@ -9,7 +9,7 @@ class UserShiftScheduleModel extends BaseModel
     protected $table      = 'user_shift_schedule';
     protected $primaryKey = 'id';
     protected $returnType     = 'object';
-    protected $allowedFields = ['userid', 'location', 'assign_userid', 'start_time', 'end_time', 'date', 'created_at','updated_at'];
+    protected $allowedFields = ['userid', 'location', 'assign_userid', 'start_time', 'end_time', 'date', 'created_at', 'updated_at'];
     public function getAllShiftSchedule()
     {
         return $this->findAll();
@@ -76,7 +76,7 @@ class UserShiftScheduleModel extends BaseModel
         $parts = explode(':', $time);
         return ($parts[0] * 60) + $parts[1];
     }
-    public function getTotalShiftHours($userId, $refDate, $selectedDate)
+    public function getTotalShiftHours($userId, $refDate, $selectedDate, $postlocationId = null)
     {
         $refDateFormatted = date('Y-m-d', strtotime($refDate));
         $selectedDateFormatted = date('Y-m-d', strtotime($selectedDate));
@@ -86,6 +86,10 @@ class UserShiftScheduleModel extends BaseModel
             WHERE userid = '$userId'
             AND date >= '$refDateFormatted'
             AND date <= '$selectedDateFormatted'";
+         if ($postlocationId !== null && is_array($postlocationId)) {
+            $postlocationIds = implode("','", $postlocationId);
+            $sql .= " AND location IN ('$postlocationIds')";
+        }
         $result = $this->query($sql)->getResult();
         return $result;
     }

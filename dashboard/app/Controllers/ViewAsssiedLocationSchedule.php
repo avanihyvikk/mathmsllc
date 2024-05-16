@@ -60,7 +60,7 @@ class ViewAsssiedLocationSchedule extends AdminBaseController
         $staff = [];
         foreach ($users as $user) {
 
-            $totalShiftHours = $UserShift->getTotalShiftHours($user->id, $_POST['refDate'], $_POST['selectedDate']);
+            $totalShiftHours = $UserShift->getTotalShiftHours($user->id, $_POST['refDate'], $_POST['selectedDate'],$locationIds);
             $totalShiftHours = $totalShiftHours[0]->total_shift_hours;
             $totalShiftHoursFormatted = substr($totalShiftHours, 0, 5);
             $title = !empty($totalShiftHoursFormatted) ? '<i class="fas fa-clock"></i> ' . $totalShiftHoursFormatted . ' Hrs' : '<i class="fas fa-clock"></i> 00:00 Hrs';

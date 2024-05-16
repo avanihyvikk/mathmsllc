@@ -54,9 +54,28 @@ class ViewOwnSchedule extends AdminBaseController
         $assignedLocations = $userModel->getAssignedLocations($user->id);
         $userShiftModel = new UserShiftScheduleModel();
         $staff = [];
+        if (isset($_POST['locationId']) && $_POST['locationId'] != null && is_numeric($_POST['locationId'])) {
+
+            foreach ($assignedLocations as $assignedLocation) {
+                $locationI_ids[] = $assignedLocation->location_id;
+            }
+            if (in_array($_POST['locationId'], $locationI_ids)) {
+                $locationId[] = $_POST['locationId'];
+                $usersshifts = $userShiftModel->getLocationwiseUserShifts($locationId, $user->id);
+            } else {
+                echo json_encode(['success' => false, 'message' => '404']);
+                return;
+            }
+        } else {
+            $locationId = [];
+            foreach ($assignedLocations as $assignedLocation) {
+                $locationId[] = $assignedLocation->location_id;
+            }
+            $usersshifts = $userShiftModel->getLocationwiseUserShifts($locationId, $user->id);
+        }
         if ($user !== null && is_object($user)) {
 
-            $totalShiftHours = $userShiftModel->getTotalShiftHours($user->id, $_POST['refDate'], $_POST['selectedDate']);
+            $totalShiftHours = $userShiftModel->getTotalShiftHours($user->id, $_POST['refDate'], $_POST['selectedDate'],$locationId);
             $totalShiftHours = $totalShiftHours[0]->total_shift_hours;
             $totalShiftHoursFormatted = substr($totalShiftHours, 0, 5);
             $title = !empty($totalShiftHoursFormatted) ? '<i class="fas fa-clock"></i> ' . $totalShiftHoursFormatted . ' Hrs' : '<i class="fas fa-clock"></i> 00:00 Hrs';
@@ -77,22 +96,6 @@ class ViewOwnSchedule extends AdminBaseController
                 'title' => $title,
                 'img' => base_url('uploads/users/' . basename($imgPath)),
             ];
-        }
-        
-        if (isset($_POST['locationId']) && $_POST['locationId'] != null && is_numeric($_POST['locationId'])) {
-
-            foreach ($assignedLocations as $assignedLocation) {
-                $locationI_ids[] = $assignedLocation->location_id;
-            }
-            if (in_array($_POST['locationId'], $locationI_ids)) {
-                $locationId[] = $_POST['locationId'];
-                $usersshifts = $userShiftModel->getLocationwiseUserShifts($locationId, $user->id);
-            } else {
-                echo json_encode(['success' => false, 'message' => '404']);
-                return;
-            }
-        } else {
-            $usersshifts = $userShiftModel->getLocationwiseUserShifts(null, $user->id);
         }
         $settingModel = new SettingModel();
         $eventtimeformat = $settingModel->where('key', 'event_time_format')->first()->value;

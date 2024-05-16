@@ -563,8 +563,9 @@
                     onPageLoading: function(args, inst) {
 
                         var refDate = moment(args.firstDay).format('YYYY-MM-DD');
-                        var selectedDate = moment(args.lastDay).format('YYYY-MM-DD');
-
+                        var lastDay = new Date(+args.lastDay -1);
+                        var selectedDate = moment(lastDay).format('YYYY-MM-DD');
+                        
                         //console.log(refDate)
                         $.ajax({
                             url: '<?php echo base_url('CreateSchedule/getUserdata'); ?>',
